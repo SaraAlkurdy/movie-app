@@ -1,0 +1,169 @@
+@use "variables" as colors;
+
+// Flex utilities
+@mixin flex-center {
+  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@mixin flex-column-center {
+  & {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Button styles (repeated in login, movie-list, and movie-detail)
+@mixin purple-button {
+  width: 100%;
+  height: clamp(44px, 8vw, 50px);
+  font-size: clamp(14px, 3vw, 16px);
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: colors.$purple !important;
+  transition: all 0.3s ease;
+  color: colors.$primary-color !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+  &:hover:not([disabled]) {
+    background-color: colors.$teal !important;
+    box-shadow: 0 6px 12px rgba(3, 218, 198, 0.3);
+    transform: translateY(-3px);
+  }
+
+  &:active:not([disabled]) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  &:disabled {
+    background-color: colors.$dark-gray !important;
+    color: colors.$disabled !important;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+// Card styles (used in login and movie cards)
+@mixin movie-card {
+  border-radius: 12px;
+  background-color: colors.$medium-gray;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  @media (max-width: 768px) {
+    &:hover {
+      transform: translateY(-5px) rotateX(3deg);
+    }
+  }
+}
+
+// Responsive padding mixins
+@mixin responsive-padding {
+  & {
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    padding: 40px;
+  }
+}
+
+// Content container (used in multiple components)
+@mixin content-container {
+  @include responsive-padding;
+  & {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+// Text styles
+@mixin purple-heading {
+  font-weight: 700;
+  color: colors.$purple;
+}
+
+@mixin section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: colors.$purple;
+  text-align: center;
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+}
+
+// Background overlay styles
+@mixin dark-gradient-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 18, 18, 0.9) 0%,
+    rgba(18, 18, 18, 0.8) 30%,
+    rgba(18, 18, 18, 0.7) 60%,
+    rgba(18, 18, 18, 0.6) 100%
+  );
+}
+
+// No poster image style
+@mixin no-poster {
+  @include flex-center;
+  & {
+    background: colors.$gradient-poster;
+    color: colors.$semi-white;
+    font-style: italic;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Film strip effect (used in login)
+@mixin film-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background-color: colors.$black;
+  display: flex;
+  z-index: 1;
+  overflow-x: auto;
+
+  .film-hole {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: colors.$dark-gray;
+    margin: 5px;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    height: 20px;
+
+    .film-hole {
+      min-width: 15px;
+      height: 15px;
+      margin: 2.5px;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@use "./variables" as colors;
+
+/* INPUT FIELD TEXT & LABEL STYLING */
+.mat-mdc-input-element,
+.mat-mdc-form-field input,
+.mdc-text-field--filled .mdc-floating-label,
+.mdc-text-field--outlined .mdc-floating-label,
+.mat-mdc-form-field .mat-mdc-form-field-label {
+  color: colors.$semi-white !important;
+}
+
+/* FLOATING LABEL DEFAULT STATE */
+.mdc-floating-label,
+.mdc-floating-label--float-above {
+  color: colors.$gray !important;
+}
+
+/* FOCUSED STATE STYLING */
+.mdc-text-field--focused .mdc-floating-label {
+  color: colors.$purple !important;
+}
+
+.mdc-text-field__input {
+  color: colors.$semi-white !important;
+  caret-color: colors.$purple !important;
+}
+
+input.mat-mdc-input-element {
+  color: colors.$semi-white !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* BROWSER AUTOFILL STYLING OVERRIDES */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px colors.$medium-gray inset !important;
+  -webkit-text-fill-color: colors.$semi-white !important;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: colors.$purple !important;
+}
+
+.mat-mdc-progress-spinner circle {
+  stroke: colors.$teal;
+}
+
+/* error toast styles */
+.mat-mdc-snack-bar-container.error-toast {
+  --mdc-snackbar-container-color: colors.$red !important;
+  --mat-snackbar-button-color: colors.$semi-white;
+  --mdc-snackbar-supporting-text-color: colors.$semi-white;
+
+  .mat-mdc-snack-bar-actions .mdc-button__label {
+    color: colors.$semi-white;
+  }
+}

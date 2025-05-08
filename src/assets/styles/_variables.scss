@@ -1,0 +1,21 @@
+$purple: #bb86fc;
+$teal: #03dac6;
+$black: #000000;
+$primary-color: #121212;
+$medium-gray: #1e1e1e;
+$light-bg: #262626;
+$semi-white: #e0e0e0;
+$gray: #b0b0b0;
+$red: #cf6679;
+$dark-blue:#1a1a2e;
+$dark-gray: #333333; 
+$disabled: #666666;
+
+// Gradient colors
+$gradient-dark: linear-gradient(
+  135deg,
+  $primary-color 0%,
+  #1a1a1a 50%,
+  $medium-gray 100%
+);
+$gradient-poster: linear-gradient(135deg, #1a1a2e 0%, #30305a 100%);

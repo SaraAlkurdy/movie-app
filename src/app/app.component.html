@@ -1,0 +1,51 @@
+<div class="app">
+  @if (!isLoginPage()) {
+  <mat-toolbar class="app_header">
+    <div class="app_header_content">
+      <a routerLink="/movies" class="logo">
+        <span class="logo-text">Movie App</span>
+      </a>
+      <span class="spacer"></span>
+      @if (isLoggedIn()) {
+        <div class="nav-links">
+          <button mat-button routerLink="/movies" routerLinkActive="active-link">
+            <mat-icon>movie</mat-icon>
+            <span>Movies</span>
+          </button>
+          <button mat-button (click)="logout()" class="logout-btn">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </div>
+      }
+    </div>
+  </mat-toolbar>
+  }
+
+  <div class="app_content" [ngClass]="{ 'vh-100': isLoginPage() }">
+    <router-outlet></router-outlet>
+  </div>
+
+  @if (!isLoginPage()) {
+  <footer class="app_footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-text">Movie App</span>
+        <p class="footer-tagline">Your ultimate movie companion</p>
+      </div>
+      <div class="footer-info">
+        <p>© 2023 Movie App - Powered by TMDB</p>
+        <div class="footer-links">
+          <a href="https://www.themoviedb.org/" target="_blank" class="tmdb-link">
+            <span>TMDB</span>
+          </a>
+          <span class="divider">|</span>
+          <a href="#" class="footer-link">Privacy</a>
+          <span class="divider">|</span>
+          <a href="#" class="footer-link">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  }
+</div>

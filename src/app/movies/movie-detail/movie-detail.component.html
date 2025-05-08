@@ -1,0 +1,127 @@
+<div class="movie-detail" [ngClass]="{ 'has-backdrop': movie.backdrop_path }">
+  @if (movie.backdrop_path) {
+  <div
+    class="movie-detail_backdrop"
+    [style.background-image]="'url(' + getBackdropUrl() + ')'">
+    <div class="movie-detail_backdrop_overlay"></div>
+  </div>
+  }
+
+  <div class="movie-detail_content">
+    <div class="back-button">
+      <button mat-button routerLink="/movies">
+        <mat-icon>arrow_back</mat-icon> Back to Movies
+      </button>
+    </div>
+
+    <div class="movie-header">
+      <div class="poster-container">
+        @if (movie.poster_path) {
+        <img [src]="getPosterUrl()" [alt]="movie.title" class="movie-poster" />
+        } @else {
+        <div class="no-poster">
+          <mat-icon>image_not_supported</mat-icon>
+          <span>No poster available</span>
+        </div>
+        }
+      </div>
+
+      <div class="movie-info">
+        <h1 class="movie-title">
+          {{ movie.title }}
+          @if (movie.release_date) {
+          <span class="movie-year">({{ getYear(movie.release_date) }})</span>
+          }
+        </h1>
+
+        <div class="movie-meta">
+          @if (movie.release_date) {
+          <span class="release-date">
+            <mat-icon>calendar_today</mat-icon>
+            {{ movie.release_date | date : "mediumDate" }}
+          </span>
+          } @if (movie.runtime) {
+          <span class="runtime">
+            <mat-icon>schedule</mat-icon>
+            {{ formatRuntime(movie.runtime) }}
+          </span>
+          } @if (movie.vote_average) {
+          <span class="rating">
+            <mat-icon>star</mat-icon>
+            {{ movie.vote_average.toFixed(1) }}/10
+          </span>
+          }
+        </div>
+
+        @if (movie.genres?.length) {
+        <div class="genres">
+          <mat-chip-set>
+            @for (genre of movie.genres; track genre.id) {
+            <mat-chip>{{ genre.name }}</mat-chip>
+            }
+          </mat-chip-set>
+        </div>
+        } @if (movie.tagline) {
+        <div class="tagline">
+          <em>{{ movie.tagline }}</em>
+        </div>
+        }
+
+        <mat-divider></mat-divider>
+
+        <div class="overview">
+          <h2>Overview</h2>
+          <p>{{ movie.overview || "No overview available." }}</p>
+        </div>
+
+        <div class="additional-info">
+          @if (movie.status) {
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value">{{ movie.status }}</span>
+          </div>
+          } @if (movie.budget) {
+          <div class="info-row">
+            <span class="info-label">Budget:</span>
+            <span class="info-value">{{ formatMoney(movie.budget) }}</span>
+          </div>
+          } @if (movie.revenue) {
+          <div class="info-row">
+            <span class="info-label">Revenue:</span>
+            <span class="info-value">{{ formatMoney(movie.revenue) }}</span>
+          </div>
+          } @if (movie.original_language) {
+          <div class="info-row">
+            <span class="info-label">Original Language:</span>
+            <span class="info-value">{{
+              movie.original_language | uppercase
+            }}</span>
+          </div>
+          }
+        </div>
+
+        <div class="actions">
+          @if (movie.imdb_id) {
+          <a
+            mat-raised-button
+            [href]="'https://www.imdb.com/title/' + movie.imdb_id"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <mat-icon>open_in_new</mat-icon> View on IMDb
+          </a>
+          } @if (movie.homepage) {
+          <a
+            mat-raised-button
+            [href]="movie.homepage"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <mat-icon>language</mat-icon> Official Website
+          </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

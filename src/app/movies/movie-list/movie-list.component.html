@@ -1,0 +1,90 @@
+<div class="movie-list">
+  <div class="movie-list_content">
+    <h1 class="movie-list_content_title">Popular Movies</h1>
+
+    @if (isLoading()) {
+      <div class="movie-list_loading-container">
+        <mat-spinner color="accent" class="custom-spinner"></mat-spinner>
+        <p class="loading-text">Loading movies...</p>
+      </div>
+    } @else if (error()) {
+      <div class="movie-list_error-container">
+        <p class="error-message">{{ error() }}</p>
+        <button mat-raised-button color="accent" (click)="loadMovies()">Try Again</button>
+      </div>
+    } @else if (movies().length === 0) {
+      <div class="movie-list_empty-container">
+        <p>No movies found.</p>
+      </div>
+    } @else {
+      <div class="movie-list_grid">
+        @for (movie of movies(); track movie.id) {
+          <div class="movie-list_grid_container">
+            <mat-card class="movie-card">
+              <div class="movie-poster-container">
+                @if (movie.poster_path) {
+                  <img
+                    [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+                    [alt]="movie.title"
+                    class="movie-poster"
+                    width="500"
+                    height="750"
+                    priority
+                  >
+                  <div class="movie-rating">
+                    <span>{{ movie.vote_average.toFixed(1) }}</span>
+                  </div>
+                } @else {
+                  <div class="no-poster">
+                    <span>No poster available</span>
+                  </div>
+                }
+              </div>
+              <mat-card-content class="movie-list_grid_content">
+                <h3 class="movie-title">{{ movie.title }}</h3>
+                <p class="release-date">{{ movie.release_date | date }}</p>
+                <p class="movie-overview">
+                  @if (movie.overview) {
+                    {{ movie.overview | slice:0:100 }}{{ movie.overview.length > 100 ? '...' : '' }}
+                  }
+                </p>
+              </mat-card-content>
+              <mat-card-actions class="movie-list_grid_actions">
+                <button
+                  mat-raised-button
+                  color="accent"
+                  [routerLink]="['/movies', movie.id]"
+                  class="view-details-btn"
+                >
+                  View Details
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        }
+      </div>
+
+      <div class="movie-list_pagination-controls">
+        <button 
+          mat-raised-button 
+          color="accent" 
+          [disabled]="currentPage() <= 1"
+          (click)="loadPreviousPage()"
+          class="pagination-btn"
+        >
+          <span class="pagination-text">Previous</span>
+        </button>
+        <span class="page-indicator">Page {{ currentPage() }} of {{ totalPages() }}</span>
+        <button 
+          mat-raised-button 
+          color="accent" 
+          [disabled]="currentPage() >= totalPages()"
+          (click)="loadNextPage()"
+          class="pagination-btn"
+        >
+          <span class="pagination-text">Next</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
