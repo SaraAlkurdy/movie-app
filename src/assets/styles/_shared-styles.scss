@@ -1,4 +1,4 @@
-@use "./variables" as colors;
+@use "./_variables" as colors;
 
 /* INPUT FIELD TEXT & LABEL STYLING */
 .mat-mdc-input-element,
@@ -51,10 +51,20 @@ input:-webkit-autofill:active {
 /* error toast styles */
 .mat-mdc-snack-bar-container.error-toast {
   --mdc-snackbar-container-color: colors.$red !important;
-  --mat-snackbar-button-color: colors.$semi-white;
-  --mdc-snackbar-supporting-text-color: colors.$semi-white;
+  --mat-snackbar-button-color: colors.$semi-white !important;
+  --mdc-snackbar-supporting-text-color: colors.$semi-white !important;
+  --mat-mdc-snack-bar-button-color: colors.$semi-white !important;
+  --mat-mdc-snack-bar-container-color: colors.$red !important;
+
+  .mdc-snackbar__surface {
+    background-color: red !important;
+  }
+
+  .mat-mdc-snack-bar-label, .mdc-snackbar__label {
+    color: colors.$black !important;
+  }
 
   .mat-mdc-snack-bar-actions .mdc-button__label {
-    color: colors.$semi-white;
+    color: colors.$black !important;
   }
 }
